@@ -6,6 +6,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
 
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Link from "next/link";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,11 +31,47 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="zh-CN"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
+      <body
+        style={{
+          margin: 0,
+          fontFamily: "system-ui, -apple-system, sans-serif",
+        }}
+      >
+        <Providers>
+          {/* 顶部导航栏 */}
+          <nav
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "16px 24px",
+              borderBottom: "1px solid #eaeaea",
+              backgroundColor: "#fff",
+            }}
+          >
+            {/* Logo / 首页链接 */}
+            <Link
+              href="/"
+              style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                textDecoration: "none",
+                color: "#333",
+              }}
+            >
+              DApp Demo
+            </Link>
+
+            {/* RainbowKit 钱包按钮 */}
+            <ConnectButton />
+          </nav>
+
+          {/* 页面内容 */}
+          <main style={{ height: "calc(100vh - 74px)" }}>{children}</main>
+        </Providers>
       </body>
     </html>
   );
